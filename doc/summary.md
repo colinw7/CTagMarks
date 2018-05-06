@@ -14,3 +14,13 @@ Organise bookmarks by tags instead of folders
 Qt Interface to tagged bookmarks.
 
 ![tagmarks](CQTagMarks.png "Tagged Bookmarks Editor")
+
+## ToDo ##
+ + easier interface to view tags and bookmarks.
+ + Search and tag
+
+## Features ##
+ + hypertext like links in custom widget with floating image button on current item
+
+# CTagMarksGen #
+Generate tags from existing bookmarks HTML file (tags by directory stack)
