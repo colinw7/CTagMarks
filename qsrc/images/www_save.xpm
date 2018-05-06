@@ -1,0 +1,53 @@
+/* XPM */
+
+static const char *
+www_save_data[] = {
+  /* width height num_colors chars_per_pixel x_hot y_hot */
+  "32 32 10 1 0 0",
+
+  /* colors */
+  ". s symbol1 c #c0c0c0 m white",
+  "# s symbol2 c #008080 m black",
+  "a s symbol3 c #808080 m white",
+  "b s symbol4 c #000080 m black",
+  "c s symbol5 c #008000 m black",
+  "d s symbol6 c #ffff00 m white",
+  "e s symbol7 c #0000ff m black",
+  "f s symbol8 c #000000 m black",
+  "g s symbol9 c #ffffff m white",
+  "  s mask c none",
+
+  /* pixels */
+  "                                ",
+  "                                ",
+  "               aaaaaa           ",
+  "             aagg####aa         ",
+  "           aaa##e#e####cf       ",
+  "          ag##geccccccccff      ",
+  "         aeggceecccccccccff     ",
+  "        aggcc#cccccccccccbff    ",
+  "       a##ccecccccccccccccbf    ",
+  "       .gg.cccccee#ece#cccbcf   ",
+  "      a.gccccceeeeceebeccccbf   ",
+  "  aaaaaaaaaaaaaeeeccccccccbcff  ",
+  "  agdgdgdgdgdgaccceecbe#cccbbf  ",
+  "  adgdgdgdgdgdaccccecccbeeeebf  ",
+  "  agdffffffffffffffceccbeeebcf  ",
+  "  adgfggggggggggggfceeceeebbbf  ",
+  "  agdfggggggggggggfcceebeeebbf  ",
+  "  adgfggbbbbbbbbggfccc#eeebebf  ",
+  "  agdfggggggggggggfccc#eeebbbf  ",
+  "  adgfggbbbbbbbbggfcc#eeebebf   ",
+  "  aggfggggggggggggfc#eeebebbf   ",
+  "  adgfggbbbbbbbbggfceeeeebbb    ",
+  "  agdfggggggggggggfceeb#bbbf    ",
+  "  adgfggbbbbbbbbggfbebccbbf     ",
+  "  aggfggggggggggggfbbebcbf      ",
+  "  adgfggbbbbbbbbggfbbbbbf       ",
+  "  fggfggggggggggggfbbff         ",
+  "  ffffggbbbbbbbbggfff           ",
+  "     fggggggggggggf             ",
+  "     fggggggggggggf             ",
+  "     ffffffffffffff             ",
+  "                                ",
+};
