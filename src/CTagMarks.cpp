@@ -2,7 +2,7 @@
 #include <CBookmarksLib.h>
 #include <CXMLLib.h>
 #include <CStrUtil.h>
-#include <CAutoPtr.h>
+#include <memory>
 
 CTagMarkTagMgr::
 CTagMarkTagMgr()
@@ -144,7 +144,9 @@ loadXML(const std::string &filename)
   if (! xml.read(filename, &tag1))
     return false;
 
-  CAutoPtr<CXMLTag> tag(tag1);
+  using TagP = std::unique_ptr<CXMLTag>;
+
+  TagP tag(tag1);
 
   if (tag->getName() != "tagmarks")
     return false;
@@ -154,14 +156,14 @@ loadXML(const std::string &filename)
   for (const auto &token : tokens) {
     if (! token->isTag()) continue;
 
-    CXMLTag *tag = token->getTag();
+    CXMLTag *ttag = token->getTag();
 
-    if      (tag->getName() == "tag") {
+    if      (ttag->getName() == "tag") {
       std::string name, desc;
 
       uint rank = 0;
 
-      const CXMLTag::OptionArray &options = tag->getOptions();
+      const CXMLTag::OptionArray &options = ttag->getOptions();
 
       CXMLTag::OptionArray::const_iterator po1 = options.begin();
       CXMLTag::OptionArray::const_iterator po2 = options.end  ();
@@ -180,12 +182,12 @@ loadXML(const std::string &filename)
       if (name != "")
         addTag(name, desc, rank);
     }
-    else if (tag->getName() == "mark") {
+    else if (ttag->getName() == "mark") {
       std::string url, desc;
 
       uint rank = 0;
 
-      const CXMLTag::OptionArray &options = tag->getOptions();
+      const CXMLTag::OptionArray &options = ttag->getOptions();
 
       CXMLTag::OptionArray::const_iterator po1 = options.begin();
       CXMLTag::OptionArray::const_iterator po2 = options.end  ();
@@ -203,44 +205,44 @@ loadXML(const std::string &filename)
 
       CTagMarkMark *mark = addMark(url, desc, rank);
 
-      CXMLTag::TokenArray tokens = tag->getChildren();
+      CXMLTag::TokenArray ttokens = ttag->getChildren();
 
-      CXMLTag::TokenArray::const_iterator pt1 = tokens.begin();
-      CXMLTag::TokenArray::const_iterator pt2 = tokens.end  ();
+      CXMLTag::TokenArray::const_iterator pt1 = ttokens.begin();
+      CXMLTag::TokenArray::const_iterator pt2 = ttokens.end  ();
 
       for ( ; pt1 != pt2; ++pt1) {
-        CXMLToken *token = *pt1;
+        CXMLToken *ttoken = *pt1;
 
-        if (! token->isTag()) continue;
+        if (! ttoken->isTag()) continue;
 
-        CXMLTag *tag = token->getTag();
+        CXMLTag *ptag = ttoken->getTag();
 
-        if (tag->getName() != "tag") continue;
+        if (ptag->getName() != "tag") continue;
 
-        std::string name, desc;
+        std::string name1, desc1;
 
-        uint rank = 0;
+        uint rank1 = 0;
 
-        const CXMLTag::OptionArray &options = tag->getOptions();
+        const CXMLTag::OptionArray &poptions = ptag->getOptions();
 
-        CXMLTag::OptionArray::const_iterator po1 = options.begin();
-        CXMLTag::OptionArray::const_iterator po2 = options.end  ();
+        CXMLTag::OptionArray::const_iterator ppo1 = poptions.begin();
+        CXMLTag::OptionArray::const_iterator ppo2 = poptions.end  ();
 
-        for ( ; po1 != po2; ++po1) {
-          CXMLTagOption *option = *po1;
+        for ( ; ppo1 != ppo2; ++ppo1) {
+          CXMLTagOption *poption = *ppo1;
 
-          if      (option->getName() == "name")
-            name = option->getValue();
-          else if (option->getName() == "desc")
-            desc = option->getValue();
-          else if (option->getName() == "rank")
-            rank = CStrUtil::toInteger(option->getValue());
+          if      (poption->getName() == "name")
+            name1 = poption->getValue();
+          else if (poption->getName() == "desc")
+            desc1 = poption->getValue();
+          else if (poption->getName() == "rank")
+            rank1 = CStrUtil::toInteger(poption->getValue());
         }
 
-        if (name != "") {
-          CTagMarkTag *tag = addTag(name, desc, rank);
+        if (name1 != "") {
+          CTagMarkTag *ntag = addTag(name1, desc1, rank1);
 
-          mark->addTag(tag);
+          mark->addTag(ntag);
         }
       }
     }
@@ -296,11 +298,11 @@ saveXML(CFileBase &file)
     file.printf("<mark url='%s' desc='%s' rank='%d'>\n",
                 url.c_str(), desc.c_str(), rank);
 
-    CTagMarkMark::TagMap::const_iterator pt1 = mark->tagsBegin();
-    CTagMarkMark::TagMap::const_iterator pt2 = mark->tagsEnd  ();
+    CTagMarkMark::TagMap::const_iterator ppt1 = mark->tagsBegin();
+    CTagMarkMark::TagMap::const_iterator ppt2 = mark->tagsEnd  ();
 
-    for ( ; pt1 != pt2; ++pt1) {
-      CTagMarkTag *tag = (*pt1).second;
+    for ( ; ppt1 != ppt2; ++ppt1) {
+      CTagMarkTag *tag = (*ppt1).second;
 
       if (tag->getName() == "") continue;
 
