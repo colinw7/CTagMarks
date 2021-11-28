@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <string>
 
 class CTagMarkTag;
 class CTagMarkMark;
@@ -12,8 +13,8 @@ class CFileBase;
 
 class CTagMarkTagMgr {
  public:
-  typedef std::map<std::string,CTagMarkTag  *> TagMap;
-  typedef std::map<std::string,CTagMarkMark *> MarkMap;
+  typedef std::map<std::string, CTagMarkTag  *> TagMap;
+  typedef std::map<std::string, CTagMarkMark *> MarkMap;
 
  public:
   CTagMarkTagMgr();
@@ -72,8 +73,8 @@ class CTagMarkTagMgr {
 
 class CTagMarkTag {
  public:
-  typedef std::list<CTagMarkMark *>           MarkList;
-  typedef std::map<std::string,CTagMarkTag *> TagMap;
+  typedef std::list<CTagMarkMark *>            MarkList;
+  typedef std::map<std::string, CTagMarkTag *> TagMap;
 
  protected:
   friend class CTagMarkTagMgr;
@@ -119,7 +120,7 @@ class CTagMarkTag {
 
 class CTagMarkMark {
  public:
-  typedef std::map<std::string,CTagMarkTag *> TagMap;
+  typedef std::map<std::string, CTagMarkTag *> TagMap;
 
  protected:
   friend class CTagMarkTagMgr;
