@@ -40,12 +40,12 @@ class CTagMarkTagMgr {
 
   void print(std::ostream &os) const;
 
-  uint getNumTags() const { return tags_.size(); }
+  uint getNumTags() const { return uint(tags_.size()); }
 
   TagMap::const_iterator tagsBegin() const { return tags_.begin(); }
   TagMap::const_iterator tagsEnd  () const { return tags_.end  (); }
 
-  uint getNumMarks() const { return marks_.size(); }
+  uint getNumMarks() const { return uint(marks_.size()); }
 
   MarkMap::const_iterator marksBegin() const { return marks_.begin(); }
   MarkMap::const_iterator marksEnd  () const { return marks_.end  (); }
@@ -98,7 +98,7 @@ class CTagMarkTag {
   TagMap::const_iterator tagsBegin() const { initTags(); return tags_.begin(); }
   TagMap::const_iterator tagsEnd  () const { initTags(); return tags_.end  (); }
 
-  uint getNumMarks() const { return marks_.size(); }
+  uint getNumMarks() const { return uint(marks_.size()); }
 
   MarkList::const_iterator marksBegin() const { return marks_.begin(); }
   MarkList::const_iterator marksEnd  () const { return marks_.end  (); }

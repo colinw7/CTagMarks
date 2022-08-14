@@ -102,7 +102,7 @@ loadBookmarkGroup(CBookmarkGroup *group, int depth,
 
   std::vector<CTagMarkTag *> tags1(tags);
 
-  CTagMarkTag *tag = addTag(group->getName(), "", 100 - 10*depth);
+  auto *tag = addTag(group->getName(), "", uint(100 - 10*depth));
 
   tags1.push_back(tag);
 
@@ -176,7 +176,7 @@ loadXML(const std::string &filename)
         else if (option->getName() == "desc")
           desc = option->getValue();
         else if (option->getName() == "rank")
-          rank = CStrUtil::toInteger(option->getValue());
+          rank = uint(CStrUtil::toInteger(option->getValue()));
       }
 
       if (name != "")
@@ -200,7 +200,7 @@ loadXML(const std::string &filename)
         else if (option->getName() == "desc")
           desc = option->getValue();
         else if (option->getName() == "rank")
-          rank = CStrUtil::toInteger(option->getValue());
+          rank = uint(CStrUtil::toInteger(option->getValue()));
       }
 
       CTagMarkMark *mark = addMark(url, desc, rank);
@@ -236,7 +236,7 @@ loadXML(const std::string &filename)
           else if (poption->getName() == "desc")
             desc1 = poption->getValue();
           else if (poption->getName() == "rank")
-            rank1 = CStrUtil::toInteger(poption->getValue());
+            rank1 = uint(CStrUtil::toInteger(poption->getValue()));
         }
 
         if (name1 != "") {

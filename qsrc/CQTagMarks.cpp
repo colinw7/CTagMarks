@@ -221,7 +221,7 @@ class CQTagMarkTagMgr : public CTagMarkTagMgr {
 
 struct CQTagsCompare {
   bool operator()(CTagMarkTag *tag1, CTagMarkTag *tag2) {
-    int cmp = tag1->getRank() - tag2->getRank();
+    int cmp = int(tag1->getRank()) - int(tag2->getRank());
 
     if (cmp != 0)
       return (cmp > 0);
@@ -232,7 +232,7 @@ struct CQTagsCompare {
 
 struct CQMarksCompare {
   bool operator()(CTagMarkMark *mark1, CTagMarkMark *mark2) {
-    int cmp = mark1->getRank() - mark2->getRank();
+    int cmp = int(mark1->getRank()) - int(mark2->getRank());
 
     if (cmp != 0)
       return (cmp > 0);
@@ -445,7 +445,7 @@ CQTagMarks::
 updateRank()
 {
   if (mark_)
-    mark_->setRank(CStrUtil::toInteger(rank_edit_->text().toStdString()));
+    mark_->setRank(uint(CStrUtil::toInteger(rank_edit_->text().toStdString())));
 }
 
 void
@@ -569,9 +569,9 @@ wheelEvent(QWheelEvent *event)
   int num = abs(event->delta())/15;
 
   if (event->delta() > 0)
-    marks_->getMgr()->scrollTagsUp(num);
+    marks_->getMgr()->scrollTagsUp(uint(num));
   else
-    marks_->getMgr()->scrollTagsDown(num);
+    marks_->getMgr()->scrollTagsDown(uint(num));
 
   marks_->redraw();
 }
@@ -661,9 +661,9 @@ wheelEvent(QWheelEvent *event)
   int num = abs(event->delta())/15;
 
   if (event->delta() > 0)
-    marks_->getMgr()->scrollMarksUp(num);
+    marks_->getMgr()->scrollMarksUp(uint(num));
   else
-    marks_->getMgr()->scrollMarksDown(num);
+    marks_->getMgr()->scrollMarksDown(uint(num));
 
   marks_->redraw();
 }
@@ -1038,7 +1038,7 @@ scrollTagsUp(unsigned int d)
 {
   int lineHeight = tagMarks_->lineHeight();
 
-  tag_offset_ -= lineHeight*d;
+  tag_offset_ -= lineHeight*int(d);
 
   if (tag_offset_ < 0)
     tag_offset_ = 0;
@@ -1052,7 +1052,7 @@ scrollTagsDown(unsigned int d)
 {
   int lineHeight = tagMarks_->lineHeight();
 
-  tag_offset_ += lineHeight*d;
+  tag_offset_ += lineHeight*int(d);
 
   tagMarks_->redraw();
 }
@@ -1063,7 +1063,7 @@ scrollMarksUp(unsigned int d)
 {
   int lineHeight = tagMarks_->lineHeight();
 
-  mark_offset_ -= lineHeight*d;
+  mark_offset_ -= lineHeight*int(d);
 
   if (mark_offset_ < 0)
     mark_offset_ = 0;
@@ -1077,7 +1077,7 @@ scrollMarksDown(unsigned int d)
 {
   int lineHeight = tagMarks_->lineHeight();
 
-  mark_offset_ += lineHeight*d;
+  mark_offset_ += lineHeight*int(d);
 
   tagMarks_->redraw();
 }
