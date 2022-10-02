@@ -77,13 +77,14 @@ class CQTagMarksTags : public QWidget {
  ~CQTagMarksTags();
 
  private:
-  void paintEvent(QPaintEvent *event);
+  void paintEvent(QPaintEvent *event) override;
 
-  void mousePressEvent(QMouseEvent *event);
-  void mouseMoveEvent(QMouseEvent *event);
-  void wheelEvent(QWheelEvent *event);
+  void mousePressEvent(QMouseEvent *event) override;
+  void mouseMoveEvent (QMouseEvent *event) override;
 
-  QSize sizeHint() const { return QSize(500, 700); }
+  void wheelEvent(QWheelEvent *event) override;
+
+  QSize sizeHint() const override { return QSize(500, 700); }
 
  private:
   CQTagMarks     *marks_        { nullptr };
@@ -103,12 +104,12 @@ class CQTagMarksMarks : public QWidget {
  ~CQTagMarksMarks();
 
  private:
-  void paintEvent(QPaintEvent *event);
+  void paintEvent(QPaintEvent *event) override;
 
-  void mousePressEvent(QMouseEvent *event);
-  void mouseMoveEvent (QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event) override;
+  void mouseMoveEvent (QMouseEvent *event) override;
 
-  void wheelEvent(QWheelEvent *event);
+  void wheelEvent(QWheelEvent *event) override;
 
  private:
   CQTagMarks     *marks_       { nullptr };

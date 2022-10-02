@@ -1,5 +1,7 @@
 #include <CQTagMarks.h>
 #include <CTagMarks.h>
+#include <CQWidgetUtil.h>
+
 #include <CFile.h>
 #include <COSFile.h>
 #include <CStrUtil.h>
@@ -15,7 +17,6 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QMouseEvent>
-#include <QWheelEvent>
 #include <QTimer>
 
 #include <svg/left_svg.h>
@@ -250,11 +251,11 @@ CQTagMarks()
 
   //------
 
-  QVBoxLayout *layout = new QVBoxLayout(this);
+  auto *layout = new QVBoxLayout(this);
 
   //------
 
-  QHBoxLayout *slayout = new QHBoxLayout;
+  auto *slayout = new QHBoxLayout;
 
   layout->addLayout(slayout);
 
@@ -276,15 +277,15 @@ CQTagMarks()
 
   //------
 
-  QWidget *control = new QWidget(this);
+  auto *control = new QWidget(this);
 
   splitter_->addWidget(control);
 
-  QVBoxLayout *clayout = new QVBoxLayout(control);
+  auto *clayout = new QVBoxLayout(control);
 
   //------
 
-  QPushButton *save_button = new QPushButton;
+  auto *save_button = new QPushButton;
 
   save_button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   save_button->setIcon(CQPixmapCacheInst->getIcon("SAVE"));
@@ -296,7 +297,7 @@ CQTagMarks()
 
   //------
 
-  QPushButton *www_save_button = new QPushButton;
+  auto *www_save_button = new QPushButton;
 
   www_save_button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   www_save_button->setIcon(CQPixmapCacheInst->getIcon("SAVE_WWW"));
@@ -308,11 +309,11 @@ CQTagMarks()
 
   //------
 
-  QHBoxLayout *dlayout = new QHBoxLayout();
+  auto *dlayout = new QHBoxLayout();
 
   clayout->addLayout(dlayout);
 
-  QLabel *desc_label = new QLabel("Desc");
+  auto *desc_label = new QLabel("Desc");
 
   desc_edit_ = new QLineEdit();
 
@@ -323,11 +324,11 @@ CQTagMarks()
 
   //------
 
-  QHBoxLayout *playout = new QHBoxLayout();
+  auto *playout = new QHBoxLayout();
 
   clayout->addLayout(playout);
 
-  QLabel *rank_label = new QLabel("Rank");
+  auto *rank_label = new QLabel("Rank");
 
   rank_edit_ = new QLineEdit();
 
@@ -566,9 +567,9 @@ void
 CQTagMarksTags::
 wheelEvent(QWheelEvent *event)
 {
-  int num = abs(event->delta())/15;
+  int num = abs(CQWidgetUtil::wheelDelta(event))/15;
 
-  if (event->delta() > 0)
+  if (CQWidgetUtil::wheelDelta(event) > 0)
     marks_->getMgr()->scrollTagsUp(uint(num));
   else
     marks_->getMgr()->scrollTagsDown(uint(num));
@@ -658,9 +659,9 @@ void
 CQTagMarksMarks::
 wheelEvent(QWheelEvent *event)
 {
-  int num = abs(event->delta())/15;
+  int num = abs(CQWidgetUtil::wheelDelta(event))/15;
 
-  if (event->delta() > 0)
+  if (CQWidgetUtil::wheelDelta(event) > 0)
     marks_->getMgr()->scrollMarksUp(uint(num));
   else
     marks_->getMgr()->scrollMarksDown(uint(num));
@@ -1173,7 +1174,7 @@ getSize()
 
   QString text = getText();
 
-  return QSize(fm.width(text), fm.height());
+  return QSize(fm.horizontalAdvance(text), fm.height());
 }
 
 bool
@@ -1236,7 +1237,7 @@ draw(QPainter *painter, const QPoint &pos)
     QSize size = getSize();
 
     if (getActive()) {
-      int w = fm.width(text) + 4;
+      int w = fm.horizontalAdvance(text) + 4;
 
       QPoint pos1 = pos + QPoint(w, -lineHeight/2 - goPixmap_.height()/2);
 
@@ -1285,7 +1286,7 @@ getSize()
 
   QString text = getText();
 
-  return QSize(fm.width(text), lineHeight);
+  return QSize(fm.horizontalAdvance(text), lineHeight);
 }
 
 bool
