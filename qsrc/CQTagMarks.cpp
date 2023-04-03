@@ -161,12 +161,12 @@ class CQTagMarkTagMgr : public CTagMarkTagMgr {
   CQTagMarks* tagMarks() const { return tagMarks_; }
 
   CQTagMarkTag *createTag(const std::string &name, const std::string &desc="",
-                          unsigned int rank=0) {
+                          unsigned int rank=0) override {
     return new CQTagMarkTag(this, name, desc, rank);
   }
 
   CQTagMarkMark *createMark(const std::string &url, const std::string &desc="",
-                            unsigned int rank=0) {
+                            unsigned int rank=0) override {
     return new CQTagMarkMark(this, url, desc, rank);
   }
 
